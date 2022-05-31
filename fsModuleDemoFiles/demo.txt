@@ -1,0 +1,2 @@
+This is sample data to write into the file
+Hello Amit!

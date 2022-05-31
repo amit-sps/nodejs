@@ -23,6 +23,7 @@ server.on("request", (req, res) => {
         res.write(chunkData)
         res.write(`data reading ${time}.......`)
         console.log(`data reading ${time}.......`)
+        
     })
     readStream.on("end",()=>{
         console.log(` reading end ${time}.......`)
