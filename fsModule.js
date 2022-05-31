@@ -94,3 +94,9 @@ fs.appendFile(path.join(__dirname, "fsModuleDemoFiles/demo.txt"),"\nHello Amit!"
 })
 
 }
+
+// Reading directory
+fs.readdir(__dirname,(err,files)=>{
+   for(const file of files)
+   console.log(file)
+})
