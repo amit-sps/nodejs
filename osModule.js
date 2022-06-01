@@ -16,3 +16,6 @@ console.log(os.type())
 // It returns the platform of os
 console.log(os.platform())
 console.log(os.release())
+// Returns the system uptime in number of seconds.
+console.log(((os.uptime()/60)/60)/24)
+console.log(os.constants.errno)
