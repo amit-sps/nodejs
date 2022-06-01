@@ -22,23 +22,24 @@ server.on("request", (req, res) => {
     let time=0;
     // const tmInterval=setInterval(()=>{time++},1)
     const readStream=fs.createReadStream(path.join(__dirname,"/demo.txt"));
-    readStream.on("data",(chunkData)=>{
-      res.write(chunkData)
-      readStream.pipe(res)
+    readStream.pipe(res)
+    // readStream.on("data",(chunkData)=>{
+    //   res.write(chunkData)
+    //   readStream.pipe(res)
         
-    })
-    readStream.on("end",()=>{
-        console.log(` reading end ${time}.......`)
-        // clearInterval(tmInterval)
-        // res.end("End")
-    })
-    readStream.on("error",()=>{
-        res.end("Something went wrong!")
+    // })
+    // readStream.on("end",()=>{
+    //     console.log(` reading end ${time}.......`)
+    //     // clearInterval(tmInterval)
+    //     // res.end("End")
+    // })
+    // readStream.on("error",()=>{
+    //     res.end("Something went wrong!")
 
-    })
-    readStream.on("open",()=>{
-        console.log(` data ready to read  ${time}.......`)
-    })
+    // })
+    // readStream.on("open",()=>{
+    //     console.log(` data ready to read  ${time}.......`)
+    // })
    
   } else {
     res.end("Invalid path!");
