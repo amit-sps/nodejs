@@ -2,6 +2,27 @@ console.log("Learning Streams.......................");
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const {PassThrough,Duplex}=require("stream")
+
+class Throttle extends Duplex{
+  constructor(time){
+    super();
+    this.delay=time;
+  }
+  _read(){
+
+  }
+   // Writes the data, push and set the delay/timeout
+   _write(chunk, encoding, callback) {
+    this.push(chunk);
+    setTimeout(callback, this.delay);
+  }
+  _final() {
+    this.push(null);
+  }
+}
+const tunnel=new PassThrough()
+const throttle = new Throttle(1000);
 http
   .createServer((req, res) => {
     if (req.url === "/") {
@@ -45,7 +66,15 @@ http
     //   readStream.on("readable",()=>{
     //       console.log("readble stream")
     //   })
-    } else {
+    } 
+    else if(req.url==="/duplex"){
+      const readStream = fs.createReadStream(path.join(__dirname, "/demo.txt"));
+      const writeStream=fs.createWriteStream(path.join(__dirname,"duplex.txt"))
+      tunnel.on("data",(chunkData)=>{
+        console.log("chunk data")
+      })
+      readStream.pipe(throttle).pipe(tunnel).pipe(res)
+    }else {
       res.write("Invalid Page!");
       res.end();
     }
